@@ -1,0 +1,57 @@
+.textInput {
+    padding: 5px;
+    border: 0.5pt solid grey;
+    border-radius: 10px;
+}
+
+.mainBtn {
+    background-color: steelblue;
+    border: transparent;
+    border-radius: 10px;
+    color: white;
+    font-size: 1em;
+    padding: 0.75em;
+}
+
+.mainBtn:hover {
+    cursor: pointer;
+    border: 1pt solid rgb(31, 28, 99);
+}
+
+.sidebarText {
+    font-size: 1em;
+    padding: 20px 0;
+}
+
+#toggleGrid {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+#toggleGrid:checked {
+    accent-color: steelblue;
+}
+
+.sidebar {
+    height: 100%;
+    width: 180px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    background-color: rgba(232, 233, 235, 0.9);
+    border: 1pt solid black;
+    overflow-x: hidden;
+    padding-top: 20px
+}
+
+.icons {
+    width: 2em;
+    height: 2em;
+    transition: all .2s ease-in-out; 
+}
+
+.icons:hover {
+    cursor: pointer;
+    transform: scale(1.1); 
+}
