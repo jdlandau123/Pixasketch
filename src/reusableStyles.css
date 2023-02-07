@@ -55,3 +55,11 @@
     cursor: pointer;
     transform: scale(1.1); 
 }
+
+.existingProjectButton {
+    border: 1pt solid steelblue;
+}
+
+.existingProjectButton:hover {
+    background-color: rgba(115, 115, 115, 0.2);
+}

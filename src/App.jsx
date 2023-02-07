@@ -23,10 +23,12 @@ function App() {
   const [isGetColor, setIsGetColor] = useState(false);
   const [brushSize, setBrushSize] = useState(1);
   const [paintBucketActive, setPaintBucketActive] = useState(false);
+  const [loadedImage, setLoadedImage] = useState('');
   
   const canvasRef = useRef();
 
   const createProject = (customWidth, customHeight, customPixelSize, customProjectName) => {
+    // add functionality to require all fields
     setShowSetup(false);
     setCanvasWidth(customWidth);
     setCanvasHeight(customHeight);
@@ -150,13 +152,21 @@ function App() {
 
   const saveProject = () => {
     const imageToSave = canvasRef.current.toDataURL("image/png");
-    // save to localstorage
+    const project = {
+      name: projectName,
+      width: canvasWidth,
+      height: canvasHeight,
+      pixelSize: pixelSize,
+      image: imageToSave,
+      date: new Date().toLocaleDateString()
+    }
+    localStorage.setItem(`pixasketch_${projectName}`, JSON.stringify(project));
   }
 
   return (
     <div className="App">
       <h1>Pixasketch</h1>
-      {showSetup && <SetupForm createProject={createProject} />}
+      {showSetup && <SetupForm createProject={createProject} setLoadedImage={setLoadedImage} />}
       {!showSetup && <div>
         <div className='sidebar' id='leftSidebar' style={{left: '0'}}>
           <p>Project: {projectName}</p>
@@ -185,7 +195,7 @@ function App() {
         {showGrid && <Grid canvasHeight={canvasHeight} canvasWidth={canvasWidth} pixelSize={pixelSize} selectedColor={selectedColor} />}
         <Canvas canvasRef={canvasRef} canvasHeight={canvasHeight} canvasWidth={canvasWidth} pixelSize={pixelSize}
           selectedColor={selectedColor} resetCanvas={resetCanvas} getColorAtPixel={getColorAtPixel} isGetColor={isGetColor}
-          brushSize={brushSize} handlePaintBucket={handlePaintBucket} paintBucketActive={paintBucketActive} />
+          brushSize={brushSize} handlePaintBucket={handlePaintBucket} paintBucketActive={paintBucketActive} loadedImage={loadedImage} />
         <div className='sidebar' id='rightSidebar' style={{right: '0'}}>
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '20px'}}>
             <div style={{display: 'flex', justifyContent: 'space-around'}}>

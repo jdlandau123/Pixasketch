@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export function Canvas(props) {
     const { canvasRef, canvasWidth, canvasHeight, pixelSize, selectedColor, resetCanvas, handleZoom,
-        getColorAtPixel, isGetColor, brushSize, handlePaintBucket, paintBucketActive } = props;
+        getColorAtPixel, isGetColor, brushSize, handlePaintBucket, paintBucketActive, loadedImage } = props;
 
     const [width, setWidth] = useState();
     const [height, setHeight] = useState();
@@ -15,6 +15,14 @@ export function Canvas(props) {
         setHeight(canvasHeight * pixelSize);
         setContext(canvasRef.current.getContext('2d'));
     }, [canvasHeight, canvasWidth]);
+
+    useEffect(() => {
+        if (loadedImage && context) {
+            const img = new Image();
+            img.src = loadedImage;
+            context.drawImage(img, 0, 0);
+        }
+    }, [context])
 
     useEffect(() => {
         if (resetCanvas) {

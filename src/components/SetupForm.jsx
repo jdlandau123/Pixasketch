@@ -1,15 +1,28 @@
 import '../reusableStyles.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import ExistingProjects from './ExistingProjects';
 
 export function SetupForm(props) {
-    const { createProject } = props;
+    const { createProject, setLoadedImage } = props;
 
     const [projectNameInput, setProjectNameInput] = useState('');
     const [widthInput, setWidthInput] = useState(32);
     const [heightInput, setHeightInput] = useState(32);
     const [pixelSizeInput, setPixelSizeInput] = useState(16);
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => { // get existing projects from localstorage
+        const existingProjects = [];
+        Object.keys(localStorage).forEach(key => {
+            if (key.includes('pixasketch')) {
+                existingProjects.push(JSON.parse(localStorage[key]));
+            }
+        })
+        setProjects(existingProjects);
+    }, []);
 
     return (
+        <>
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <div>
                 <label for='projectNameInput' style={{display: 'block'}}>Project Name</label>
@@ -35,6 +48,8 @@ export function SetupForm(props) {
                 Create New Project
             </button>
         </div>
+        {projects.length > 0 && <ExistingProjects projects={projects} createProject={createProject} setLoadedImage={setLoadedImage} />}
+        </>
     )
 }
 
