@@ -10,6 +10,7 @@ export function SetupForm(props) {
     const [heightInput, setHeightInput] = useState(32);
     const [pixelSizeInput, setPixelSizeInput] = useState(16);
     const [projects, setProjects] = useState([]);
+    const [btnDisabled, setBtnDisabled] = useState(true);
 
     useEffect(() => { // get existing projects from localstorage
         const existingProjects = [];
@@ -21,6 +22,20 @@ export function SetupForm(props) {
         setProjects(existingProjects);
     }, []);
 
+    useEffect(() => {
+        if (projectNameInput && widthInput <= 48 && heightInput <= 48 && pixelSizeInput <= 32) {
+            setBtnDisabled(false);
+        } else {
+            setBtnDisabled(true);
+        }
+    }, [projectNameInput, widthInput, heightInput, pixelSizeInput])
+
+    const validateForm = () => {
+        if (!btnDisabled) {
+            createProject(widthInput, heightInput, pixelSizeInput, projectNameInput);
+        }
+    }
+
     return (
         <>
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -31,20 +46,20 @@ export function SetupForm(props) {
             </div>
             <div style={{padding: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width:'50%'}}>
                 <label for='projectWidthInput'>Width(px)</label>
-                <input className='textInput' type='text' id='projectWidthInput' style={{margin: '0 10px', width: '50%'}}
-                    defaultValue='32' onChange={(e) => setWidthInput(e.target.value)} />
+                <input className='textInput' type='number' max='48' id='projectWidthInput' style={{margin: '0 10px', width: '50%'}}
+                    defaultValue='32' step='4' onChange={(e) => setWidthInput(e.target.value)} />
                 <label for='projectHeightInput'>Height(px)</label>
-                <input className='textInput' type='text' id='projectHeightInput' style={{margin: '0 10px', width: '50%'}}
-                    defaultValue='32' onChange={(e) => setHeightInput(e.target.value)} />
+                <input className='textInput' type='number' max='48' id='projectHeightInput' style={{margin: '0 10px', width: '50%'}}
+                    defaultValue='32' step='4' onChange={(e) => setHeightInput(e.target.value)} />
             </div>
             <div style={{padding: '10px'}}>
                 <label for='pixelSizeInput'>Pixel Size</label>
-                <input className='textInput' type='text' id='pixelSizeInput' style={{margin: '0 10px', width: '25%'}}
-                    defaultValue='16' onChange={(e) => setPixelSizeInput(e.target.value)} />
+                <input className='textInput' type='number' id='pixelSizeInput' style={{margin: '0 10px', width: '25%'}}
+                    defaultValue='16' step='4' max='16' onChange={(e) => setPixelSizeInput(e.target.value)} />
             </div>
             <br />
-            <button className='mainBtn' type='button'
-                onClick={() => createProject(widthInput, heightInput, pixelSizeInput, projectNameInput)}>
+            <button className='mainBtn' type='button' disabled={btnDisabled}
+                onClick={() => validateForm()}>
                 Create New Project
             </button>
         </div>

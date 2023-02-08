@@ -163,10 +163,17 @@ function App() {
     localStorage.setItem(`pixasketch_${projectName}`, JSON.stringify(project));
   }
 
+  const deleteProject = () => {
+    localStorage.removeItem(`pixasketch_${projectName}`);
+    setShowSetup(true);
+  }
+
   return (
     <div className="App">
+      {showSetup && <>
       <h1>Pixasketch</h1>
-      {showSetup && <SetupForm createProject={createProject} setLoadedImage={setLoadedImage} />}
+      <SetupForm createProject={createProject} setLoadedImage={setLoadedImage} />
+      </>}
       {!showSetup && <div>
         <div className='sidebar' id='leftSidebar' style={{left: '0'}}>
           <p>Project: {projectName}</p>
@@ -210,6 +217,7 @@ function App() {
               style={{border: `${paintBucketActive ? '1.5pt solid black' : 'none'}`}}></img>
             <img className='icons' src="/save-icon.svg" onClick={() => {saveProject()}}
               style={{border: 'none'}}></img>
+            <img className='icons' src="/trash-icon.svg" onClick={() => deleteProject()}></img>
           </div>
         </div>
       </div>}
