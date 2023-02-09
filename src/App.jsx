@@ -213,8 +213,8 @@ function App() {
             <img className='icons' src="/eraser-icon.svg" onClick={() => setSelectedColor('#FFFFFF')}></img>
             <img className='icons' src="/color-dropper-icon.svg" onClick={() => setIsGetColor(!isGetColor)}
               style={{border: `${isGetColor ? '1.5pt solid black' : 'none'}`}}></img>
-            <img className='icons' src="/paint-bucket-icon.svg" onClick={() => {setPaintBucketActive(!paintBucketActive)}}
-              style={{border: `${paintBucketActive ? '1.5pt solid black' : 'none'}`}}></img>
+            {/* <img className='icons' src="/paint-bucket-icon.svg" onClick={() => {setPaintBucketActive(!paintBucketActive)}}
+              style={{border: `${paintBucketActive ? '1.5pt solid black' : 'none'}`}}></img> */}
             <img className='icons' src="/save-icon.svg" onClick={() => {saveProject()}}
               style={{border: 'none'}}></img>
             <img className='icons' src="/trash-icon.svg" onClick={() => deleteProject()}></img>
