@@ -71,3 +71,14 @@
 .existingProjectButton:hover {
     background-color: rgba(115, 115, 115, 0.2);
 }
+
+.arrows {
+    width: 1em;
+    padding: 10px;
+    transition: all .2s ease-in-out;
+}
+
+.arrows:hover {
+    cursor: pointer;
+    transform: scale(1.3);
+}

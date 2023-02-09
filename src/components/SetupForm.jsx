@@ -1,5 +1,6 @@
 import '../reusableStyles.css';
 import { useState, useEffect } from 'react';
+import NumberInput from './NumberInput';
 import ExistingProjects from './ExistingProjects';
 
 export function SetupForm(props) {
@@ -45,23 +46,18 @@ export function SetupForm(props) {
                     onChange={(e) => setProjectNameInput(e.target.value)} />
             </div>
             <div style={{padding: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width:'50%'}}>
-                <label for='projectWidthInput'>Width(px)</label>
-                <input className='textInput' type='number' max='48' id='projectWidthInput' style={{margin: '0 10px', width: '50%'}}
-                    defaultValue='32' step='4' onChange={(e) => setWidthInput(e.target.value)} />
-                <label for='projectHeightInput'>Height(px)</label>
-                <input className='textInput' type='number' max='48' id='projectHeightInput' style={{margin: '0 10px', width: '50%'}}
-                    defaultValue='32' step='4' onChange={(e) => setHeightInput(e.target.value)} />
+                <NumberInput label={'Width(px)'} value={widthInput} updateValue={setWidthInput} max={48} min={4} />
+                <NumberInput label={'Height(px)'} value={heightInput} updateValue={setHeightInput} max={48} min={4} />
             </div>
             <div style={{padding: '10px'}}>
-                <label for='pixelSizeInput'>Pixel Size</label>
-                <input className='textInput' type='number' id='pixelSizeInput' style={{margin: '0 10px', width: '25%'}}
-                    defaultValue='16' step='4' max='16' onChange={(e) => setPixelSizeInput(e.target.value)} />
+                <NumberInput label={'Pixel Size'} value={pixelSizeInput} updateValue={setPixelSizeInput} max={24} min={4} />
             </div>
             <br />
             <button className='mainBtn' type='button' disabled={btnDisabled}
                 onClick={() => validateForm()}>
                 Create New Project
             </button>
+            <p>Note: This site currently supports desktop only</p>
         </div>
         {projects.length > 0 && <ExistingProjects projects={projects} createProject={createProject} setLoadedImage={setLoadedImage} />}
         </>
